@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend # Chemin vers le répertoire contenant les fichiers Docker du backend
+    ports:
+      - "5000:5000" # Mapping des ports du conteneur au port de l'hôte
+    environment:
+      - MONGODB_URL=mongodb://localhost:27017/crud # URL de connexion à MongoDB
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend # Chemin vers le répertoire contenant les fichiers Docker du frontend
+    ports:
+      - "3000:3000" # Mapping des ports du conteneur au port de l'hôte
+
+  mongo:
+    image: mongo:latest # Utilisation de l'image officielle de MongoDB depuis Docker Hub
+    ports:
+      - "27017:27017" # Mapping des ports du conteneur au port de l'hôte
